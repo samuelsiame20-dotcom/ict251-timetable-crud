@@ -1,0 +1,46 @@
+{
+  "info": {
+    "name": "ICT251 Activity 4 - Timetable API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "1. GET all",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/timetable" }
+    },
+    {
+      "name": "2. GET one",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/timetable/{{id}}" }
+    },
+    {
+      "name": "3. POST create",
+      "event": [{
+        "listen": "test",
+        "script": { "exec": ["if (pm.response.code === 201) pm.collectionVariables.set('id', pm.response.json().id);"] }
+      }],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/timetable",
+        "body": { "mode": "raw", "raw": "{\n  \"course_code\": \"ICT251\",\n  \"course_name\": \"Web Technologies Lab\",\n  \"lecturer\": \"TBA\",\n  \"day_of_week\": \"Friday\",\n  \"start_time\": \"14:00\",\n  \"end_time\": \"16:00\",\n  \"venue\": \"Lab 3\",\n  \"weekly_goal\": \"Record the Postman demo\"\n}" }
+      }
+    },
+    {
+      "name": "4. PUT update",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/timetable/{{id}}",
+        "body": { "mode": "raw", "raw": "{\n  \"venue\": \"Lab 4\",\n  \"weekly_goal\": \"Submit the Google Form\"\n}" }
+      }
+    },
+    {
+      "name": "5. DELETE",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/api/timetable/{{id}}" }
+    }
+  ]
+}
